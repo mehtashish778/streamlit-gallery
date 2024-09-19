@@ -1,7 +1,9 @@
 import json
-
+import pandas as pd
 from streamlit_elements import nivo, mui
 from .dashboard import Dashboard
+
+# from pipeline.analysis import SENTIMENT_LABELS
 
 
 class Pie1(Dashboard.Item):
@@ -40,10 +42,29 @@ class Pie1(Dashboard.Item):
         }
 
     def __call__(self, json_data):
+ 
+        SENTIMENT_LABELS = ["positive", "negative", "neutral"]
+
+        
+        file_add = 'data\comment_analysis.csv'
+        
         try:
-            data = json.loads(json_data)
-        except json.JSONDecodeError:
-            data = self.DEFAULT_DATA
+            data = pd.read_csv(file_add)
+        except pd.errors.EmptyDataError:
+            raise Exception("No data available")
+            
+        sentiment_data = {}
+        
+        for sentiment in data['sentiment']:
+            sentiment_data[sentiment] = sentiment_data.get(sentiment, 0) + 1
+            
+
+        DEFAULT_DATA = [
+            { "id": sentiment.capitalize(), "label": sentiment.capitalize(), "value": sentiment_data.get(sentiment, 0), "color": "hsl(128, 70%, 50%)" }
+            for sentiment in SENTIMENT_LABELS
+        ]
+                
+            
 
         with mui.Paper(key=self._key, sx={"display": "flex", "flexDirection": "column", "borderRadius": 3, "overflow": "hidden"}, elevation=1):
             with self.title_bar():
@@ -52,7 +73,7 @@ class Pie1(Dashboard.Item):
 
             with mui.Box(sx={"flex": 1, "minHeight": 0}):
                 nivo.Pie(
-                    data=data,
+                    data=DEFAULT_DATA,
                     theme=self._theme["dark" if self._dark_mode else "light"],
                     margin={ "top": 40, "right": 80, "bottom": 80, "left": 80 },
                     innerRadius=0.5,
