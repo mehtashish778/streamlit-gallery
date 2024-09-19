@@ -6,28 +6,27 @@ from streamlit import session_state as state
 from streamlit_elements import elements, sync, event
 from types import SimpleNamespace
 
-from .dashboard import Dashboard, Editor, Card, DataGrid, Radar, Pie, Player
+from .dashboard import Dashboard, Editor, Card, DataGrid, Radar, Pie, Player, Pie1
 
 
 def main():
     st.write(
         """
-        ✨ Streamlit Elements &nbsp; [![GitHub][github_badge]][github_link] [![PyPI][pypi_badge]][pypi_link]
+        VI Dashboard ✨ &nbsp; [![GitHub][github_badge]][github_link]
         =====================
 
-        Create a draggable and resizable dashboard in Streamlit, featuring Material UI widgets,
-        Monaco editor (Visual Studio Code), Nivo charts, and more!
+        A tool for analyzing Instagram comments, offering insights on sentiment and engagement trends.
 
         [github_badge]: https://badgen.net/badge/icon/GitHub?icon=github&color=black&label
-        [github_link]: https://github.com/okld/streamlit-elements
-
-        [pypi_badge]: https://badgen.net/pypi/v/streamlit-elements?icon=pypi&color=black&label
-        [pypi_link]: https://pypi.org/project/streamlit-elements
+        [github_link]: https://github.com/mehtashish778/streamlit-gallery
         """
     )
 
-    with st.expander("GETTING STARTED"):
-        st.write((Path(__file__).parent/"README.md").read_text())
+    st.expander("Comment Analysis")
+    
+    
+    
+
 
     st.title("")
 
@@ -36,7 +35,8 @@ def main():
         w = SimpleNamespace(
             dashboard=board,
             editor=Editor(board, 0, 0, 6, 11, minW=3, minH=3),
-            player=Player(board, 0, 12, 6, 10, minH=5),
+            pie1=Pie1(board, 0, 12, 6, 10, minH=5),
+            # player=Player(board, 0, 12, 6, 10, minH=5),
             pie=Pie(board, 6, 0, 6, 7, minW=3, minH=4),
             radar=Radar(board, 12, 7, 3, 7, minW=2, minH=4),
             card=Card(board, 6, 7, 3, 7, minW=2, minH=4),
@@ -48,6 +48,8 @@ def main():
         w.editor.add_tab("Data grid", json.dumps(DataGrid.DEFAULT_ROWS, indent=2), "json")
         w.editor.add_tab("Radar chart", json.dumps(Radar.DEFAULT_DATA, indent=2), "json")
         w.editor.add_tab("Pie chart", json.dumps(Pie.DEFAULT_DATA, indent=2), "json")
+        w.editor.add_tab("Pie1 chart", json.dumps(Pie1.DEFAULT_DATA, indent=2), "json")
+
     else:
         w = state.w
 
@@ -56,7 +58,8 @@ def main():
 
         with w.dashboard(rowHeight=57):
             w.editor()
-            w.player()
+            # w.player()
+            w.pie1(w.editor.get_content("Pie1 chart"))
             w.pie(w.editor.get_content("Pie chart"))
             w.radar(w.editor.get_content("Radar chart"))
             w.card(w.editor.get_content("Card content"))

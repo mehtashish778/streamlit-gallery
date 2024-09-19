@@ -7,18 +7,20 @@ def main():
     page = page_group("p")
 
     with st.sidebar:
-        st.title("🎈 Okld's Gallery")
+        st.title("Menu")
 
-        with st.expander("✨ APPS", True):
-            page.item("Streamlit gallery", apps.gallery, default=True)
+        # with st.expander("✨ APPS", True):
+        #     page.item("Streamlit gallery", apps.gallery, default=True)
 
         with st.expander("🧩 COMPONENTS", True):
-            page.item("Ace editor", components.ace_editor)
-            page.item("Disqus", components.disqus)
+            # page.item("Ace editor", components.ace_editor)
+            # page.item("Disqus", components.disqus)
             page.item("Elements⭐", components.elements)
-            page.item("Pandas profiling", components.pandas_profiling)
-            page.item("Quill editor", components.quill_editor)
-            page.item("React player", components.react_player)
+            page.item("Elements1⭐", components.elements)
+
+            # page.item("Pandas profiling", components.pandas_profiling)
+            # page.item("Quill editor", components.quill_editor)
+            # page.item("React player", components.react_player)
 
     page.show()
 
