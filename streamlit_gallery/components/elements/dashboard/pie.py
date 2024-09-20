@@ -2,17 +2,12 @@ import json
 
 from streamlit_elements import nivo, mui
 from .dashboard import Dashboard
+import csv
+import pandas as pd
 
 
 class Pie(Dashboard.Item):
 
-    DEFAULT_DATA = [
-        { "id": "java", "label": "java", "value": 465, "color": "hsl(128, 70%, 50%)" },
-        { "id": "rust", "label": "rust", "value": 140, "color": "hsl(178, 70%, 50%)" },
-        { "id": "scala", "label": "scala", "value": 40, "color": "hsl(322, 70%, 50%)" },
-        { "id": "ruby", "label": "ruby", "value": 439, "color": "hsl(117, 70%, 50%)" },
-        { "id": "elixir", "label": "elixir", "value": 366, "color": "hsl(286, 70%, 50%)" }
-    ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -39,20 +34,35 @@ class Pie(Dashboard.Item):
             }
         }
 
-    def __call__(self, json_data):
+    def __call__(self, csv_file,label):
         try:
-            data = json.loads(json_data)
-        except json.JSONDecodeError:
-            data = self.DEFAULT_DATA
+            data = pd.read_csv(csv_file)  # Read CSV directly
+        except Exception as e:
+            raise Exception("No data available: " + str(e))
+        
+        sentiment_label = data[label].unique().tolist()
+        sentiment_data = {}
+        
+        for sentiment in data[label]:
+            sentiment_data[sentiment] = sentiment_data.get(sentiment, 0) + 1
+        
+        DEFAULT_DATA = [
+            { "id": sentiment.capitalize(), "label": sentiment.capitalize(), "value": sentiment_data.get(sentiment, 0), "color": "hsl(128, 70%, 50%)" }
+            for sentiment in sentiment_label
+        ]
+            
+        
+            
+        
 
         with mui.Paper(key=self._key, sx={"display": "flex", "flexDirection": "column", "borderRadius": 3, "overflow": "hidden"}, elevation=1):
             with self.title_bar():
                 mui.icon.PieChart()
-                mui.Typography("Pie chart", sx={"flex": 1})
+                mui.Typography(label.capitalize(), sx={"flex": 1})
 
             with mui.Box(sx={"flex": 1, "minHeight": 0}):
                 nivo.Pie(
-                    data=data,
+                    data=DEFAULT_DATA,
                     theme=self._theme["dark" if self._dark_mode else "light"],
                     margin={ "top": 40, "right": 80, "bottom": 80, "left": 80 },
                     innerRadius=0.5,

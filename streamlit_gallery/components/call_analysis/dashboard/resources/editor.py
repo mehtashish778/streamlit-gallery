@@ -1,6 +1,6 @@
 from functools import partial
 from streamlit_elements import mui, editor, sync, lazy
-from .dashboard import Dashboard
+from ..dashboard import Dashboard
 
 
 class Editor(Dashboard.Item):

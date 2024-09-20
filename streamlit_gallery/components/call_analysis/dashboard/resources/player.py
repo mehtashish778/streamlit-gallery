@@ -1,5 +1,5 @@
 from streamlit_elements import media, mui, sync, lazy
-from .dashboard import Dashboard
+from ..dashboard import Dashboard
 
 class Player(Dashboard.Item):
 

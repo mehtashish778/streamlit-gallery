@@ -1,7 +1,7 @@
 import json
 
 from streamlit_elements import mui, nivo
-from .dashboard import Dashboard
+from ..dashboard import Dashboard
 
 
 class Radar(Dashboard.Item):

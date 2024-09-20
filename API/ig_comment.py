@@ -14,7 +14,7 @@ import csv
 
 
 # Constants (move these to a separate config file in a real-world scenario)
-ACCESS_TOKEN = 'EAAUkdfPvZBZAoBOzAx5n90h8I4DLRByYPBZAkgMZCZCGD0vhnQIQhGwn9q2lu4z8hSZAdqpLRMEZAG37XwSzznT2hpkvecCtMb44egBfaMroT35tCpSHCEBZBM1J0AVnZCWErAKZAZC1jJUHuUIQGbY2bRIuC2uyUBEzdI3x8ZCSQsDZCJWvyq7NT8rzOnlxKqnKiwNlq'
+ACCESS_TOKEN = 'key'
 MY_USERNAME = 'VETiNSTANT'
 INSTAGRAM_ACCOUNT_ID = '17841459159542761'
 BASE_URL = 'https://graph.facebook.com/v20.0'

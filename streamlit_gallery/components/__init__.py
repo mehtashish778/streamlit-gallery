@@ -5,3 +5,4 @@ from .elements.streamlit_app import main as elements
 # from .pandas_profiling.streamlit_app import main as pandas_profiling
 from .quill_editor.streamlit_app import main as quill_editor
 from .react_player.streamlit_app import main as react_player
+from .call_analysis.streamlit_app import main as call_analysis
