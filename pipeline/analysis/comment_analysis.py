@@ -5,6 +5,8 @@ from promptify import Prompter, OpenAI, Pipeline
 
 # Define constants
 API_KEY = 'api_key'
+os.environ["OPENAI_API_KEY"] = API_KEY
+
 MODEL_NAME = 'gpt-3.5-turbo'
 TEMPLATE_PATH = 'multilabel_classification.jinja'
 

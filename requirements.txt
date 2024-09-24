@@ -1,15 +1,18 @@
 # Core
 streamlit
 
-# Streamlit components
-streamlit-ace
-streamlit-discourse
-streamlit-disqus
+
+
+
 streamlit-elements
-streamlit-pandas-profiling
 streamlit-player
-streamlit-quill
 
 # Dependencies
-pandas-profiling
+# pandas-profiling
 requests
+
+
+pandasai
+pandas==1.5.3
+numpy==1.21.6
+C:\Users\mehta\promptify_v1\Promptify

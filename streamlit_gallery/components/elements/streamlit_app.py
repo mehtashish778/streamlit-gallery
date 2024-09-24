@@ -8,6 +8,12 @@ from types import SimpleNamespace
 
 from .dashboard import Dashboard, Editor, Card, DataGrid, Radar, Pie, Player, LineGraph
 
+import warnings  # {{ edit_1 }}
+
+# Suppress specific deprecation warning
+warnings.filterwarnings("ignore", category=DeprecationWarning, message=".*experimental_get_query_params.*")  # {{ edit_2 }}
+
+# ... existing code ...
 
 def main():
     st.write(
